@@ -1,5 +1,5 @@
 # Define global variables
-$global:PROJECT_NAME = "ml-boilerplate"
+$global:PROJECT_NAME = "soccer_simple_reg"
 $global:python_VERSION = "3.12"
 $global:python_INTERPRETER = "python"
 
@@ -8,7 +8,8 @@ function create_environment {
     if (-Not (Test-Path -Path ".$global:PROJECT_NAME")) {
         & $global:python_INTERPRETER -m venv ".$global:PROJECT_NAME"
         Write-Output ">>> python sandbox environment: .$global:PROJECT_NAME created."
-    } else {
+    }
+    else {
         Write-Output ">>> python sandbox environment: .$global:PROJECT_NAME already exists"
     }
     Write-Output ">>> Activate python sandbox environment: $global:PROJECT_NAME using command: activate_environment"
@@ -21,7 +22,8 @@ function activate_environment {
         & ".$global:PROJECT_NAME/Scripts/Activate.ps1"
         Write-Output ">>> Activated python sandbox environment: .$global:PROJECT_NAME"
         Write-Output ">>> Run 'deactivate' to exit the environment"
-    } catch {
+    }
+    catch {
         Write-Output ">>> Error: Failed to activate python sandbox environment: .$global:PROJECT_NAME"
         Write-Output $_.Exception.Message
     }
@@ -32,7 +34,8 @@ function install_requirements {
     try {
         & $global:python_INTERPRETER -m pip install -r requirements.txt
         Write-Output ">>> python dependencies installed successfully"
-    } catch {
+    }
+    catch {
         Write-Output ">>> Error: Failed to install python dependencies"
         Write-Output $_.Exception.Message
     }
