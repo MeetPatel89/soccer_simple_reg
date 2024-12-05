@@ -1,0 +1,62 @@
+--> mono-repo structure
+
+ProducerConnect/
+├── libraries/                # Independent libraries within the project
+│   ├── Library1/             # Library 1 (e.g., data-processing)
+│   │   ├── library1/         # Source code for Library1
+│   │   │   ├── __init__.py
+│   │   │   ├── module1.py
+│   │   │   ├── module2.py
+│   │   └── tests/            # Unit tests for Library1
+│   │       ├── test_module1.py
+│   │       ├── test_module2.py
+│   ├── Library2/             # Library 2 (e.g., API utilities)
+│   │   ├── library2/         # Source code for Library2
+│   │   │   ├── __init__.py
+│   │   │   ├── api_connector.py
+│   │   │   └── utils.py
+│   │   └── tests/            # Unit tests for Library2
+│   │       ├── test_api_connector.py
+│   │       └── test_utils.py
+│   └── common/               # Shared utility libraries
+│       ├── common/           # Common library code
+│       │   ├── __init__.py
+│       │   ├── logger.py
+│       │   └── helpers.py
+│       └── tests/            # Tests for common utilities
+│           └── test_helpers.py
+├── apps/                     # Applications or scripts using the libraries
+│   ├── app1/                 # Application 1
+│   │   ├── main.py           # Entry point for app1
+│   │   └── config/           # App-specific configuration
+│   │       └── settings.yaml
+│   ├── app2/                 # Application 2
+│   │   ├── main.py
+│   │   └── config/
+│   │       └── settings.yaml
+├── data/                     # Data files as before
+├── notebooks/                # Jupyter notebooks as before
+├── tests/                    # Integration tests across libraries
+│   ├── test_integration_app1.py
+│   ├── test_integration_app2.py
+├── docs/                     # Documentation
+├── scripts/                  # Standalone scripts for setup or tasks
+├── requirements.txt          # Shared dependencies across the project
+├── requirements-dev.txt      # Development dependencies (e.g., pytest, flake8)
+├── setup.py                  # For setting up the monorepo (optional)
+└── README.md                 # Project overview
+
+--> Library structure
+
+libraries/
+├── Library1/
+│   ├── library1/            # Source code
+│   │   ├── __init__.py
+│   │   ├── module1.py
+│   │   └── module2.py
+│   ├── tests/               # Tests
+│   │   ├── test_module1.py
+│   │   ├── test_module2.py
+│   ├── pyproject.toml       # Packaging configuration
+│   ├── README.md            # Library documentation
+│   └── LICENSE              # Licensing information
