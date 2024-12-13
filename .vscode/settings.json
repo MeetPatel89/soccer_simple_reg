@@ -2,7 +2,21 @@
     "files.autoSave": "afterDelay",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
     },
-    "editor.formatOnSave": true,
     "python.envFile": "${workspaceFolder}/.env",
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.formatting.provider": "black",
+    "python.linting.mypyArgs": [
+        "--config-file=${workspaceFolder}/pyproject.toml"
+    ],
 }
