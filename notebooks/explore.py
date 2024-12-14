@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pandas as pd
 from scipy.stats import t
 
@@ -8,8 +10,17 @@ from ml_boilerplate_module import (
 )
 
 
-def print_metrics(filepath: str, regressors: list[str], label: str) -> None:
-    df = pd.read_csv(filepath)
+def print_metrics(
+    regressors: list[str],
+    label: str,
+    df: pd.DataFrame = None,
+    filepath: Optional[str] = None,
+) -> None:
+
+    if df is None and filepath is None:
+        raise ValueError("Either df or filepath should be provided")
+    if filepath is not None:
+        df = pd.read_csv(filepath)
 
     print("")
     print("Correlation between regressors and label: ")
@@ -54,7 +65,7 @@ def print_metrics(filepath: str, regressors: list[str], label: str) -> None:
         print(f"t-statistic for slope: {slope / slope_std_error}")
         print(
             f"p-value for slope: "
-            f"{1 - t.cdf(slope / slope_std_error, df.shape[0] - 2)}"
+            f"{2*(1 - t.cdf(slope / slope_std_error, df.shape[0] - 2))}"
         )
         print("")
         print(f"Intercept margin of error: {margin_of_error_intercept}")
@@ -65,10 +76,9 @@ def print_metrics(filepath: str, regressors: list[str], label: str) -> None:
         print(f"t-statistic for intercept: {intercept / intercept_std_error}")
 
         # fmt: off
-        p_value_intercept = 1 - t.cdf(
+        p_value_intercept = 2*(1 - t.cdf(
             intercept / intercept_std_error, df.shape[0] - 2
-        )
+        ))
         # fmt: on
 
         print(f"p-value for intercept: {p_value_intercept}")
-        print(len(df))
