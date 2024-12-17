@@ -1,62 +1,24 @@
---> mono-repo structure
+Correlation between regressors and label: 
+--------
+Regressor: Cost
+Correlation: 0.9643097125454517
+--------
+Residual squared error: 2.884191045985443
+Residual_standard_error: 1.698290624712226
+R-squared: 0.9298932217094917
+Adjusted R-squared: 0.9294227064189514
+Slope estimate: 0.18208264626002543
+Intercept estimate: 0.9471853461853161
+Slope standard error: 0.004095801363176402
+Intercept standard error: 0.32480986101528414
 
-ProducerConnect/
-├── libraries/                # Independent libraries within the project
-│   ├── Library1/             # Library 1 (e.g., data-processing)
-│   │   ├── library1/         # Source code for Library1
-│   │   │   ├── __init__.py
-│   │   │   ├── module1.py
-│   │   │   ├── module2.py
-│   │   └── tests/            # Unit tests for Library1
-│   │       ├── test_module1.py
-│   │       ├── test_module2.py
-│   ├── Library2/             # Library 2 (e.g., API utilities)
-│   │   ├── library2/         # Source code for Library2
-│   │   │   ├── __init__.py
-│   │   │   ├── api_connector.py
-│   │   │   └── utils.py
-│   │   └── tests/            # Unit tests for Library2
-│   │       ├── test_api_connector.py
-│   │       └── test_utils.py
-│   └── common/               # Shared utility libraries
-│       ├── common/           # Common library code
-│       │   ├── __init__.py
-│       │   ├── logger.py
-│       │   └── helpers.py
-│       └── tests/            # Tests for common utilities
-│           └── test_helpers.py
-├── apps/                     # Applications or scripts using the libraries
-│   ├── app1/                 # Application 1
-│   │   ├── main.py           # Entry point for app1
-│   │   └── config/           # App-specific configuration
-│   │       └── settings.yaml
-│   ├── app2/                 # Application 2
-│   │   ├── main.py
-│   │   └── config/
-│   │       └── settings.yaml
-├── data/                     # Data files as before
-├── notebooks/                # Jupyter notebooks as before
-├── tests/                    # Integration tests across libraries
-│   ├── test_integration_app1.py
-│   ├── test_integration_app2.py
-├── docs/                     # Documentation
-├── scripts/                  # Standalone scripts for setup or tasks
-├── requirements.txt          # Shared dependencies across the project
-├── requirements-dev.txt      # Development dependencies (e.g., pytest, flake8)
-├── setup.py                  # For setting up the monorepo (optional)
-└── README.md                 # Project overview
+T-value for 95% confidence interval: 1.976013177679155
+Slope margin of error: 0.008093357466792817
+Interval of slope for 95 % confidence interval: 0.1739892887932326 to 0.19017600372681825
+t-statistic for slope: 44.45592696390324
+p-value for slope: 0.0
 
---> Library structure
-
-libraries/
-├── Library1/
-│   ├── library1/            # Source code
-│   │   ├── __init__.py
-│   │   ├── module1.py
-│   │   └── module2.py
-│   ├── tests/               # Tests
-│   │   ├── test_module1.py
-│   │   ├── test_module2.py
-│   ├── pyproject.toml       # Packaging configuration
-│   ├── README.md            # Library documentation
-│   └── LICENSE              # Licensing information
+Intercept margin of error: 0.6418285656063363
+Interval of intercept for 95 % confidence interval: 0.30535678057897986 to 1.5890139117916524
+t-statistic for intercept: 2.9161225069479824
+p-value for intercept: 0.004092334272898901

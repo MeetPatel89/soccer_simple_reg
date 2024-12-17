@@ -4,8 +4,11 @@ import pandas as pd
 from scipy.stats import t
 
 from ml_boilerplate_module import (
+    find_adj_r_squared,
     find_correlation,
     find_least_square_estimates,
+    find_r_squared,
+    find_residual_squared_error,
     find_standard_errors,
 )
 
@@ -27,13 +30,21 @@ def print_metrics(
     for regressor in regressors:
         print("--------")
         print(f"Regressor: {regressor}")
-        print(find_correlation(df, regressor, label))
-
-    print("")
-    print("Least square estimates: ")
-    for regressor in regressors:
+        print(f"Correlation: {find_correlation(df, regressor, label)}")
         print("--------")
-        print(f"Regressor: {regressor}")
+        residual_squared_errror = find_residual_squared_error(
+            df,
+            regressor,
+            label,
+        )
+        print(f"Residual squared error: {residual_squared_errror}")
+        print(f"Residual_standard_error: {residual_squared_errror**0.5}")
+
+        r_squared = find_r_squared(df, regressor, label)
+        print(f"R-squared: {r_squared}")
+        adj_r_squared = find_adj_r_squared(df, regressor, label)
+        print(f"Adjusted R-squared: {adj_r_squared}")
+
         estimates = find_least_square_estimates(df, regressor, label)
         slope = estimates["slope_estimate"]
         intercept = estimates["intercept_estimate"]
@@ -56,7 +67,8 @@ def print_metrics(
 
         # fmt: off
         print(
-            f"Interval: {slope - margin_of_error_slope} to "
+            f"Interval of slope for 95 % confidence interval: "
+            f"{slope - margin_of_error_slope} to "
             f"{slope + margin_of_error_slope}"
         )
         # fmt: on
@@ -70,7 +82,8 @@ def print_metrics(
         print("")
         print(f"Intercept margin of error: {margin_of_error_intercept}")
         print(
-            f"Interval: {intercept - margin_of_error_intercept} to "
+            f"Interval of intercept for 95 % confidence interval: "
+            f"{intercept - margin_of_error_intercept} to "
             f"{intercept + margin_of_error_intercept}"
         )
         print(f"t-statistic for intercept: {intercept / intercept_std_error}")
