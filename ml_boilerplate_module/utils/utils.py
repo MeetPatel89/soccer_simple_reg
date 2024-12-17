@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from scipy.stats import f
 
 
 def find_correlation(df: pd.DataFrame, col1: str, col2: str) -> float:
@@ -37,7 +38,7 @@ def find_residuals(df: pd.DataFrame, x_col: str, y_col: str) -> float:
     return float(residuals)
 
 
-# Sum of Squared Error Divided by degrees of freedom - mean squared error
+# Sum of Squared Error Divided by degrees of freedom (n-2) - mean squared error
 def find_residual_squared_error(
     df: pd.DataFrame,
     x_col: str,
@@ -70,6 +71,18 @@ def find_sum_of_squared_residuals(
         )
     )
     # fmt: on
+
+
+def compute_f_statistic(df: pd.DataFrame, x_col: str, y_col: str) -> float:
+    sum_of_squared_residuals = find_sum_of_squared_residuals(df, x_col, y_col)
+    mean_squared_error = find_residual_squared_error(df, x_col, y_col)
+    return float(sum_of_squared_residuals / mean_squared_error)
+
+
+def compute_p_value(df: pd.DataFrame, x_col: str, y_col: str) -> float:
+    f_statistic = compute_f_statistic(df, x_col, y_col)
+    # return float(1 - f.cdf(f_statistic, 1, df.shape[0] - 2))
+    return float(f.sf(f_statistic, 1, df.shape[0] - 2))
 
 
 def find_r_squared(df: pd.DataFrame, x_col: str, y_col: str) -> float:

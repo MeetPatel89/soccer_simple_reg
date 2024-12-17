@@ -4,6 +4,8 @@ import pandas as pd
 from scipy.stats import t
 
 from ml_boilerplate_module import (
+    compute_f_statistic,
+    compute_p_value,
     find_adj_r_squared,
     find_correlation,
     find_least_square_estimates,
@@ -95,3 +97,12 @@ def print_metrics(
         # fmt: on
 
         print(f"p-value for intercept: {p_value_intercept}")
+
+        print("")
+        print("--------")
+        print("")
+        print(f"F-statistic: {compute_f_statistic(df, regressor, label)}")
+        p_value_f_statistic = compute_p_value(df, regressor, label)
+        print(f"P-value for F-statistic: {p_value_f_statistic}")
+        print("")
+        print("--------")

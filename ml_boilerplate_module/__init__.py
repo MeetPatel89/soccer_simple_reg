@@ -1,4 +1,6 @@
 from .utils.utils import (  # noqa: F401
+    compute_f_statistic,
+    compute_p_value,
     find_adj_r_squared,
     find_correlation,
     find_least_square_estimates,
@@ -14,4 +16,6 @@ __all__ = [
     "find_residual_squared_error",
     "find_r_squared",
     "find_adj_r_squared",
+    "compute_f_statistic",
+    "compute_p_value",
 ]
