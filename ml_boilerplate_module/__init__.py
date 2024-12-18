@@ -7,6 +7,7 @@ from .utils.utils import (  # noqa: F401
     find_r_squared,
     find_residual_squared_error,
     find_standard_errors,
+    get_theoretical_quantiles,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "find_adj_r_squared",
     "compute_f_statistic",
     "compute_p_value",
+    "get_theoretical_quantiles",
 ]

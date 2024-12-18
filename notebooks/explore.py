@@ -3,6 +3,7 @@ from typing import Optional
 import pandas as pd
 from scipy.stats import t
 
+from ml_boilerplate_module import get_theoretical_quantiles  # noqa: F401
 from ml_boilerplate_module import (
     compute_f_statistic,
     compute_p_value,

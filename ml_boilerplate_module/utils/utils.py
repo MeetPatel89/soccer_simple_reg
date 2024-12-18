@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from scipy.stats import f
+from scipy.stats import f, norm
 
 
 def find_correlation(df: pd.DataFrame, col1: str, col2: str) -> float:
@@ -119,3 +119,18 @@ def find_standard_errors(
         "standard_error_slope": standard_error_slope,
         "standard_error_intercept": standard_error_intercept,
     }
+
+
+def get_theoretical_quantiles(
+    n: int,
+    mu: float = 0,
+    scale: float = 1,
+) -> list[float]:
+    arr = np.linspace(0, 1, n + 1)
+    quantiles = []
+    for i in range(len(arr)):
+        if i == len(arr) - 1:
+            continue
+        midpoint = np.round((arr[i] + arr[i + 1]) / 2, 4)
+        quantiles.append(norm.ppf(midpoint, loc=mu, scale=scale))
+    return quantiles
