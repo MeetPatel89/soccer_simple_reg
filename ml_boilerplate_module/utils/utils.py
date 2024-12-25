@@ -1,16 +1,56 @@
+import math
+
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 from scipy.stats import f, norm
 
 
 def find_correlation(df: pd.DataFrame, col1: str, col2: str) -> float:
+    """
+    Calculate the Pearson correlation coefficient between two columns
+    in a DataFrame.
+
+    Parameters:
+    df (pd.DataFrame): The DataFrame containing the data.
+    col1 (str): The name of the first column.
+    col2 (str): The name of the second column.
+
+    Returns:
+    float: The Pearson correlation coefficient between the two columns,
+    ranging from -1 to 1.
+
+    Examples:
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>> data = {'A': [1, 2, 3, 4, 5], 'B': [5, 4, 3, 2, 1]}
+    >>> df = pd.DataFrame(data)
+    >>> find_correlation(df, 'A', 'B')
+    -1.0
+    >>> data = {'A': [1, 2, 3, 4, 5], 'B': [1, 2, 3, 4, 5]}
+    >>> df = pd.DataFrame(data)
+    >>> find_correlation(df, 'A', 'B')
+    1.0
+    >>> data = {'A': [1, 2, 3, 4, 5], 'B': [2, 3, 4, 5, 6]}
+    >>> df = pd.DataFrame(data)
+    >>> find_correlation(df, 'A', 'B')
+    1.0
+    >>> data = {'A': [1, 2, 3, 4, 5], 'B': [5, 6, 7, 8, 10]}
+    >>> df = pd.DataFrame(data)
+    >>> find_correlation(df, 'A', 'B')
+    0.970725343394151
+    >>> data = {'A': [1, 2, 3, 4, 5], 'B': [5, 5, 5, 5, 5]}
+    >>> df = pd.DataFrame(data)
+    >>> find_correlation(df, 'A', 'B')
+    nan
+    """
     col1_mean = df[col1].mean()
     col2_mean = df[col2].mean()
     col1_dev = df[col1] - col1_mean
     col2_dev = df[col2] - col2_mean
     numerator = np.sum(col1_dev * col2_dev)
     denominator = np.sqrt(np.sum(col1_dev**2) * np.sum(col2_dev**2))
-    return float(numerator / denominator)
+    return np.nan if denominator == 0 else float(numerator / denominator)
 
 
 def find_least_square_estimates(
@@ -134,3 +174,35 @@ def get_theoretical_quantiles(
         midpoint = np.round((arr[i] + arr[i + 1]) / 2, 4)
         quantiles.append(norm.ppf(midpoint, loc=mu, scale=scale))
     return quantiles
+
+
+def compute_likelihood_reg(
+    df: pd.DataFrame,
+    predictors: list[str],
+    response: str,
+) -> float:
+    n = df.shape[0]
+    p = len(predictors)
+    X = df.loc[:, predictors]
+    X = sm.add_constant(X)
+    y = df[response]
+    model = sm.OLS(y, X).fit()
+    y_pred = model.predict(X)
+    residuals = y - y_pred
+    rss = (residuals**2).sum()
+    error_var = rss / (n - p - 1)
+
+    # fmt: off
+    log_likelihood = (
+        n * math.log(1 / math.sqrt(2 * math.pi * error_var))
+        - rss / (2 * error_var)
+    )
+    # fmt: on
+
+    # get the model parameters
+    params = model.params
+    print(f"Intercept: {params['const']}")
+    for predictor in predictors:
+        print(f"{predictor}: {params[predictor]}")
+
+    return float(log_likelihood)

@@ -3,9 +3,9 @@ from typing import Optional
 import pandas as pd
 from scipy.stats import t
 
-from ml_boilerplate_module import get_theoretical_quantiles  # noqa: F401
-from ml_boilerplate_module import (
+from ml_boilerplate_module import (  # noqa: F401
     compute_f_statistic,
+    compute_likelihood_reg,
     compute_p_value,
     find_adj_r_squared,
     find_correlation,
@@ -13,6 +13,7 @@ from ml_boilerplate_module import (
     find_r_squared,
     find_residual_squared_error,
     find_standard_errors,
+    get_theoretical_quantiles,
 )
 
 

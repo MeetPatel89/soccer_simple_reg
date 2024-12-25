@@ -1,5 +1,6 @@
 from .utils.utils import (  # noqa: F401
     compute_f_statistic,
+    compute_likelihood_reg,
     compute_p_value,
     find_adj_r_squared,
     find_correlation,
@@ -20,4 +21,5 @@ __all__ = [
     "compute_f_statistic",
     "compute_p_value",
     "get_theoretical_quantiles",
+    "compute_likelihood_reg",
 ]
