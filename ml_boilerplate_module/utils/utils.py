@@ -3,7 +3,7 @@ import math
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
-from scipy.stats import f, norm
+from scipy.stats import f, norm, rankdata
 
 
 def find_correlation(df: pd.DataFrame, col1: str, col2: str) -> float:
@@ -206,3 +206,30 @@ def compute_likelihood_reg(
         print(f"{predictor}: {params[predictor]}")
 
     return float(log_likelihood)
+
+
+# compute chatterjee coefficient using dataframe functions
+def compute_chatterjee_corr_df(df: pd.DataFrame, x: str, y: str) -> float:
+    n = len(df)
+    df["y_rank"] = df[y].rank()
+    df["x_rank"] = df[x].rank()
+    df.sort_values(by="x_rank", inplace=True)
+    a = df["y_rank"].diff().abs().sum()
+    b = n**2 - 1
+    chatt_corr = 1 - ((3 * a) / b)
+    return float(chatt_corr)
+
+
+def compute_chatterjee_corr_np(x: list[int], y: list[int]) -> float:
+    n = len(x)
+    x_sorted_indices = np.argsort(x)
+    y_sorted = np.array(y[x_sorted_indices])
+    y_rank = rankdata(y_sorted)
+    a = np.abs(np.diff(y_rank)).sum() * n
+    l_counts = []
+    for i in y_sorted:
+        less_than_i = y_sorted[y_sorted < i]
+        l_counts.append(len(less_than_i) * (n - len(less_than_i)))
+    b = np.sum(l_counts) * 2
+    chatt_corr = 1 - (a / b)
+    return float(chatt_corr)

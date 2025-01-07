@@ -4,6 +4,8 @@ import pandas as pd
 from scipy.stats import t
 
 from ml_boilerplate_module import (  # noqa: F401
+    compute_chatterjee_corr_df,
+    compute_chatterjee_corr_np,
     compute_f_statistic,
     compute_likelihood_reg,
     compute_p_value,

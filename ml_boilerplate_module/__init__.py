@@ -1,4 +1,6 @@
 from .utils.utils import (  # noqa: F401
+    compute_chatterjee_corr_df,
+    compute_chatterjee_corr_np,
     compute_f_statistic,
     compute_likelihood_reg,
     compute_p_value,
@@ -22,4 +24,6 @@ __all__ = [
     "compute_p_value",
     "get_theoretical_quantiles",
     "compute_likelihood_reg",
+    "compute_chatterjee_corr_df",
+    "compute_chatterjee_corr_np",
 ]
