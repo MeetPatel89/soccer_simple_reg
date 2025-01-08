@@ -233,3 +233,13 @@ def compute_chatterjee_corr_np(x: list[int], y: list[int]) -> float:
     b = np.sum(l_counts) * 2
     chatt_corr = 1 - (a / b)
     return float(chatt_corr)
+
+
+def split_dataframe_k_folds(
+    df: pd.DataFrame, k: int, random_state: int = 42
+) -> list[pd.DataFrame]:
+    np.random.seed(random_state)
+    df_shuffled = df.sample(frac=1, random_state=random_state)
+    df_shuffled = df_shuffled.reset_index(drop=True)
+    folds = np.array_split(df_shuffled, k)
+    return folds

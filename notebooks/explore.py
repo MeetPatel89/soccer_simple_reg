@@ -16,6 +16,7 @@ from ml_boilerplate_module import (  # noqa: F401
     find_residual_squared_error,
     find_standard_errors,
     get_theoretical_quantiles,
+    split_dataframe_k_folds,
 )
 
 
